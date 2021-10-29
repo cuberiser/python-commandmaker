@@ -5,9 +5,11 @@ with open("README.md", "r") as f:
 
 setuptools.setup(
     name="python-commandmaker",
-    version="0.0.1",
-    author="cuberiser@gmail.com",
-    long_description=long_description,
+    version="0.0.2",
+    author="Cube Riser",
+    author_email="cuberiser@gmail.com",
+    long_description_content_type="text/markdown",
+    long_description=str(long_description),
     description="Python module for discord bot like commands from the console",
     python_requires=">=3.10.0",
     packages=setuptools.find_packages(),

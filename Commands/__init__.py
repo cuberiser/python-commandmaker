@@ -3,6 +3,10 @@ from .errors import *
 from .core import Command
 
 
+__version__ = "0.0.2"
+__author__ = "Cube Riser"
+
+
 class CommandMaker:
     """
     This is our base command maker class from which we make commands.
@@ -44,6 +48,11 @@ class CommandMaker:
         if callable(self.prefix):
             return self.prefix(self)
         return str(self.prefix)
+
+    @property
+    def commands(self):
+        for command in self._commands.values():
+            yield command
 
     def run(self):
         print(
