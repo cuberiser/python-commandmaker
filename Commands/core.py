@@ -26,7 +26,7 @@ class Command:
     """
 
     def __init__(
-            self, name: str, aliases: Sequence[str], func: Callable, *, usage: str = None, description: str = "No description"
+            self, name: str, aliases: Sequence[str], func: Callable, *, usage: str = None, description: str
     ):
         self.args: list[str] = [
             i.strip() for i in str(signature(func))[1:-1].split(", ")

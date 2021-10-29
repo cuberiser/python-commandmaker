@@ -22,7 +22,7 @@ class CommandMaker:
         for kwarg in kwargs:
             self.__setattr__(kwarg, kwargs[kwarg])
 
-    def command(self, *, name: str = None, aliases: Sequence[str] = []):
+    def command(self, *, name: str = None, aliases: Sequence[str] = [], description: str="No description"):
         if self.get_command(name):
             raise CommandCreateError(
                 "Already an existing command or alias {cmd}".format(cmd=name)
@@ -34,7 +34,7 @@ class CommandMaker:
                 )
 
         def _wrapper(func: Callable):
-            cmd = Command(name, aliases, func)
+            cmd = Command(name, aliases, func, description=description)
             self._commands[name or func.__name__] = cmd
             for a in aliases:
                 self._aliases[str(a)] = cmd
