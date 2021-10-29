@@ -12,11 +12,12 @@ def get_prefix(_):
         return prefix.get("prefix") or _.default_prefix
     return str(_.default_prefix)
 
+# Initialize it
+bot = CommandMaker("A bot", get_prefix, case_insensitive=True, default_prefix=".")
 
-engine = CommandMaker("A bot", get_prefix, case_insensitive=True, default_prefix=".")
 
-
-class PositiveNumber(CustomConverter, int):    
+# Custom converter example
+class PositiveNumber(CustomConverter):    
     def __new__(cls, arg):
         arg = int(arg)
         if arg < 0:
@@ -24,7 +25,8 @@ class PositiveNumber(CustomConverter, int):
         return int(arg)
 
 
-@engine.command(name="factorial", aliases=["fctrl"])
+# two commands
+@bot.command(name="factorial", aliases=["fctrl"])
 def factorial(num: PositiveNumber = 5):
     one: int = 1
     for i in range(2, num+1):
@@ -32,9 +34,10 @@ def factorial(num: PositiveNumber = 5):
     print(one)
 
 
-@engine.command(name="two args")
+@bot.command(name="two args")
 def two_args(first, second):
     print("first arg was", first, "and second arg was", second)
 
 
-engine.run()
+# Running it
+bot.run()

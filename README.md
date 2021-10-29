@@ -8,7 +8,7 @@ You can read the examples to see how to create a bot with it
 This package is solely written in python 3.10
 and thus requires it.
 
-You can install it by doing `pip install git+{the repo's url}`
+You can install it by doing `pip install git+https://github.com/cuberiser/python-commandmaker`
 Make sure you have git installed on your system before this.
 You can submit pull requests to improve any code as the project
 is completely open source
