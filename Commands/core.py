@@ -1,6 +1,7 @@
 from .errors import *
 from typing import Callable, Sequence
 from inspect import signature
+import asyncio
 
 
 class CustomConverter:
@@ -64,4 +65,7 @@ class Command:
                 command_li.remove("")
         while "" in command_li:
             command_li.remove("")
-        self.func(*command_li)
+        if asyncio.iscoroutinefunction(self.func):
+            asyncio.run(self.func(*command_li))
+        else:
+            self.func(*command_li)
