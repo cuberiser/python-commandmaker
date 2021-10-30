@@ -3,7 +3,7 @@ from .errors import *
 from .core import Command
 
 
-__version__ = "0.0.2"
+__version__ = "0.0.3"
 __author__ = "Cube Riser"
 
 
