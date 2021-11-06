@@ -43,7 +43,7 @@ class CommandMaker:
 
     def get_command(self, command_name: str):
         return self._commands.get(command_name) or self._aliases.get(command_name)
-    
+
     def _get_prefix(self) -> str:
         if callable(self.prefix):
             return self.prefix(self)
