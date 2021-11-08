@@ -9,7 +9,6 @@ This package is solely written in python 3.10
 and thus requires it.
 
 You can install it by doing `pip install python-commandmaker`
-Make sure you have git installed on your system before this.
 You can submit pull requests to improve any code as the project
 is completely open source
 
