@@ -1,9 +1,12 @@
+"""
+Check https://pypi.org/project/python-commandmaker, https://github.com/cuberiser/python-commandmaker for more info
+"""
 from typing import Callable, Sequence
 from .errors import *
 from .core import Command
 
 
-__version__ = "0.0.3"
+__version__ = "0.0.4"
 __author__ = "Cube Riser"
 
 
