@@ -13,7 +13,9 @@ class CommandMaker:
     You can either inherit from this or make an instance to create commands.
     """
 
-    def __init__(self, name: str, prefix: str | Callable, *, case_insensitive: bool, **kwargs):
+    def __init__(
+        self, name: str, prefix: str | Callable, *, case_insensitive: bool, **kwargs
+    ):
         self._cs = case_insensitive
         self._prefix = prefix
         self.__name__ = name
@@ -22,16 +24,22 @@ class CommandMaker:
         for kwarg in kwargs:
             self.__setattr__(kwarg, kwargs[kwarg])
 
-    def command(self, *, name: str = "", aliases: Sequence[str] = [], description: str="No description"):
-        if self.get_command(name):
-            raise CommandCreateError(
-                "Already an existing command or alias {cmd}".format(cmd=name)
-            )
-        for alias in aliases:
-            if self.get_command(alias):
-                raise CommandCreateError(
-                    "Already an existing command or alias {cmd}".format(cmd=alias)
-                )
+    def command(
+        self,
+        *,
+        name: str = "",
+        aliases: Sequence[str] = [],
+        description: str = "No description",
+        override=False,
+    ):
+        if not override:
+            if self.get_command(name):
+                raise CommandCreateError(f"Already an existing command or alias {name}")
+            for alias in aliases:
+                if self.get_command(alias):
+                    raise CommandCreateError(
+                        f"Already an existing command or alias {alias}"
+                    )
 
         def _wrapper(func: Callable):
             cmd = Command(name, aliases, func, description=description)
@@ -62,7 +70,7 @@ class CommandMaker:
         while True:
             command = input(">>> ") if not self._cs else input(">>> ").lower()
             if command.startswith(self.prefix):
-                command = command[len(self.prefix):]
+                command = command[len(self.prefix) :]
                 cmd = self.get_command(command.split(" ")[0])
                 if cmd:
                     try:
@@ -80,5 +88,5 @@ class CommandMaker:
                     print(command.name, command.signature, "\n", command.description)
             elif command == "exit":
                 break
-            elif command == 'prefix':
+            elif command == "prefix":
                 print("My current prefix is", self.prefix)

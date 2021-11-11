@@ -15,7 +15,7 @@ class CustomConverter:
     def __init__(self, arg: str):
         self.arg = arg
 
-    def __new__(cls, arg: str): # Make sure to define this in your own converter
+    def __new__(cls, arg: str):  # Make sure to define this in your own converter
         raise NotImplementedError(
             "The subclasses for converters need to define __new__ and return the values"
         )
@@ -27,7 +27,13 @@ class Command:
     """
 
     def __init__(
-            self, name: str, aliases: Sequence[str], func: Callable, *, usage: str = None, description: str
+        self,
+        name: str,
+        aliases: Sequence[str],
+        func: Callable,
+        *,
+        usage: str = None,
+        description: str
     ):
         self.args: list[str] = [
             i.strip() for i in str(signature(func))[1:-1].split(", ")
