@@ -4,6 +4,7 @@ Check https://pypi.org/project/python-commandmaker, https://github.com/cuberiser
 from typing import Callable, Sequence
 from .errors import *
 from .core import Command
+import sys
 
 
 __version__ = "0.0.4"
@@ -43,12 +44,13 @@ class CommandMaker:
                     raise CommandCreateError(
                         f"Already an existing command or alias {alias}"
                     )
-
         def _wrapper(func: Callable):
             cmd = Command(name, aliases, func, description=description)
             self._commands[name or func.__name__] = cmd
             for a in aliases:
                 self._aliases[str(a)] = cmd
+            if override:
+                print(f"WARNING: Overriding a command might have unintentional effects in some commands\ncommand:{name or func.__name__}", file=sys.stderr)
 
         return _wrapper
 
