@@ -44,15 +44,27 @@ class CommandMaker:
                     raise CommandCreateError(
                         f"Already an existing command or alias {alias}"
                     )
+
         def _wrapper(func: Callable):
-            cmd = Command(name, aliases, func, description=description or func.__doc__ or "No description")
+            cmd = Command(
+                name,
+                aliases,
+                func,
+                description=description or func.__doc__ or "No description",
+            )
             self._commands[name or func.__name__] = cmd
             for a in aliases:
                 self._aliases[str(a)] = cmd
             if override:
-                print(f"WARNING: Overriding a command might have unintentional effects in some commands\ncommand:{name or func.__name__}", file=sys.stderr)
+                print(
+                    f"WARNING: Overriding a command might have unintentional effects in some commands\ncommand:{name or func.__name__}",
+                    file=sys.stderr,
+                )
             if description:
-                print(f"WARNING: Description kwarg is deprecated, use docstrings instead\ncommand: {name or func.__name__}", file=sys.stderr)
+                print(
+                    f"WARNING: Description kwarg is deprecated, use docstrings instead\ncommand: {name or func.__name__}",
+                    file=sys.stderr,
+                )
 
         return _wrapper
 
