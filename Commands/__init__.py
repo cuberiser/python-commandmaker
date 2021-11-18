@@ -7,7 +7,7 @@ from .core import Command
 import sys
 
 
-__version__ = "0.0.4"
+__version__ = "0.0.5"
 __author__ = "Cube Riser"
 
 
@@ -33,7 +33,7 @@ class CommandMaker:
         *,
         name: str = "",
         aliases: Sequence[str] = [],
-        description: str = "No description",
+        description: str = "",
         override=False,
     ):
         if not override:
@@ -45,12 +45,14 @@ class CommandMaker:
                         f"Already an existing command or alias {alias}"
                     )
         def _wrapper(func: Callable):
-            cmd = Command(name, aliases, func, description=description)
+            cmd = Command(name, aliases, func, description=description or func.__doc__ or "No description")
             self._commands[name or func.__name__] = cmd
             for a in aliases:
                 self._aliases[str(a)] = cmd
             if override:
                 print(f"WARNING: Overriding a command might have unintentional effects in some commands\ncommand:{name or func.__name__}", file=sys.stderr)
+            if description:
+                print(f"WARNING: Description kwarg is deprecated, use docstrings instead\ncommand: {name or func.__name__}", file=sys.stderr)
 
         return _wrapper
 
