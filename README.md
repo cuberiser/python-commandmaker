@@ -1,4 +1,5 @@
 # A Python package for creating discord bot like commands
+***
 
 This package aims to create discord bot
 like commands for the python console.
